@@ -1,9 +1,9 @@
 name: air-quality-daily
 
 on:
-  workflow_dispatch:
   schedule:
     - cron: '11 6 * * *'
+  workflow_dispatch:
 
 jobs:
   schedule_pipelines:
@@ -30,6 +30,13 @@ jobs:
       - name: execute python workflows from bash script
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
+          AQICN_API_KEY: ${{ secrets.AQICN_API_KEY }}
+          AQICN_URL: ${{ secrets.AQICN_URL }}
+          AQICN_COUNTRY: ${{ secrets.AQICN_COUNTRY }}
+          AQICN_CITY: ${{ secrets.AQICN_CITY }}
+          AQICN_STREET: ${{ secrets.AQICN_STREET }}
+          WEATHER_LAT: ${{ secrets.WEATHER_LAT }}
+          WEATHER_LON: ${{ secrets.WEATHER_LON }}
         run: |
           python daily_feature_pipeline_cardiff.py
       - name: github pages publish
